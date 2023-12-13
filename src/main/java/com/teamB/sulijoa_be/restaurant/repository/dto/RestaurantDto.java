@@ -24,6 +24,19 @@ public class RestaurantDto {
 	@Builder.Default
 	private int bookmarkCount = 0;
 
+	public RestaurantDto(Restaurant restaurant) {
+		this.address = restaurant.getAddress();
+		this.restaurantName = restaurant.getRestaurantName();
+		this.category = restaurant.getCategory();
+		this.sojuPrice = restaurant.getSojuPrice();
+		this.beerPrice = restaurant.getBeerPrice();
+		this.businessHours = restaurant.getBusinessHours();
+		this.lat = restaurant.getLat();
+		this.lon = restaurant.getLon();
+		this.imageURLs = restaurant.getImageURLs();
+		this.bookmarkCount = restaurant.getBookmarkCount();
+	}
+
 	public Restaurant toEntity() {
 		return Restaurant.builder()
 						.address(address)
