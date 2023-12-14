@@ -1,6 +1,5 @@
 package com.teamB.sulijoa_be;
 
-import com.teamB.sulijoa_be.restaurant.service.CsvReaderService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

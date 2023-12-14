@@ -32,10 +32,14 @@ dependencies {
 	// MySQL
 	implementation 'com.mysql:mysql-connector-j:8.0.32'
 	runtimeOnly 'mysql:mysql-connector-java:8.0.32'
-	// javax
-	implementation 'javax.annotation:javax.annotation-api:1.3.2'
 	// OpenCSV
 	implementation 'com.opencsv:opencsv:5.5'
+	// QueryDsl
+	// 스프링 부트 3.0 이상
+	implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
+	annotationProcessor "com.querydsl:querydsl-apt:5.0.0:jakarta"
+	annotationProcessor "jakarta.annotation:jakarta.annotation-api"
+	annotationProcessor "jakarta.persistence:jakarta.persistence-api"
 }
 
 tasks.named('test') {
