@@ -13,6 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class RestaurantDto {
+	private Long restaurant_seq;
 	private String address;
 	private String restaurantName;
 	private String category;
@@ -27,6 +28,7 @@ public class RestaurantDto {
 	private int bookmarkCount = 0;
 
 	public RestaurantDto(Restaurant restaurant) {
+		this.restaurant_seq = restaurant.getRestaurant_seq();
 		this.address = restaurant.getAddress();
 		this.restaurantName = restaurant.getRestaurantName();
 		this.category = restaurant.getCategory();
@@ -41,6 +43,7 @@ public class RestaurantDto {
 
 	public Restaurant toEntity() {
 		return Restaurant.builder()
+						.restaurant_seq(restaurant_seq)
 						.address(address)
 						.restaurantName(restaurantName)
 						.category(category)
