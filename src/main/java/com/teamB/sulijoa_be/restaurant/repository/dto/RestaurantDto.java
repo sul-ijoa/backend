@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -19,7 +21,7 @@ public class RestaurantDto {
 	private String businessHours;
 	private double lat;
 	private double lon;
-	private String imageURLs;
+	private List<String> imageURLs;
 
 	@Builder.Default
 	private int bookmarkCount = 0;
