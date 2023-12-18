@@ -3,6 +3,8 @@ package com.teamB.sulijoa_be.restaurant.repository.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
@@ -39,8 +41,8 @@ public class Restaurant {
 	@Column(nullable = false)
 	private double lon;
 
-	@Column(nullable = false, length = 2048)
-	private String imageURLs;
+	@Column(nullable = false, length = 4096)
+	private List<String> imageURLs;
 
 	@Column
 	@Builder.Default

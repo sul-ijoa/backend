@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
@@ -28,6 +30,7 @@ public class CsvReaderService {
 			reader.readNext();
 
 			while ((nextLine = reader.readNext()) != null) {
+				List<String> imageURLs = Arrays.asList(nextLine[8].replaceAll("[\\[\\]\\s\"]", "").split(","));
 				RestaurantDto restaurantDto = RestaurantDto.builder()
 								.address(nextLine[0])
 								.restaurantName(nextLine[1])
@@ -37,7 +40,7 @@ public class CsvReaderService {
 								.businessHours(nextLine[5])
 								.lat(Double.parseDouble(nextLine[6]))
 								.lon(Double.parseDouble(nextLine[7]))
-								.imageURLs(nextLine[8])
+								.imageURLs(imageURLs)
 								.build();
 
 				Restaurant restaurant = restaurantDto.toEntity();
