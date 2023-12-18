@@ -9,6 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.Map;
+
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -34,5 +37,17 @@ public class UserService {
 
 		userRepository.save(userDto.toEntity());
 		return ResponseEntity.status(HttpStatus.CREATED).body("success");
+	}
+
+	public ResponseEntity<Map<String, Boolean>> checkNicknameAvailability(String nickname) {
+		boolean isAvailable = !userRepository.existsByNickname(nickname);
+		Map<String, Boolean> response = Collections.singletonMap("duplication", !isAvailable);
+		return ResponseEntity.ok(response);
+	}
+
+	public ResponseEntity<Map<String, Boolean>> checkUserIdAvailability(String userID) {
+		boolean isAvailable = !userRepository.existsByUserID(userID);
+		Map<String, Boolean> response = Collections.singletonMap("duplication", !isAvailable);
+		return ResponseEntity.ok(response);
 	}
 }
