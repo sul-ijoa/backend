@@ -37,4 +37,16 @@ public class UserController {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("error");
 		}
 	}
+
+	@PostMapping("/checkNickname")
+	public ResponseEntity<Map<String, Boolean>> checkNicknameAvailability(@RequestBody Map<String, String> requestBody) {
+		String nickname = requestBody.get("nickname");
+		return userService.checkNicknameAvailability(nickname);
+	}
+
+	@PostMapping("/checkUserId")
+	public ResponseEntity<Map<String, Boolean>> checkUserIdAvailability(@RequestBody Map<String, String> requestBody) {
+		String userID = requestBody.get("userID");
+		return userService.checkUserIdAvailability(userID);
+	}
 }
