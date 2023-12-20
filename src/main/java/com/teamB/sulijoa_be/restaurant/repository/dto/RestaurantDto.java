@@ -101,6 +101,7 @@ public class RestaurantDto {
 		private int sojuPrice;
 		private int beerPrice;
 		private String address;
+		private String businessHours;
 		private String category;
 		private List<String> imageURLs;
 		private int bookmarkCount;
@@ -112,6 +113,7 @@ public class RestaurantDto {
 			this.sojuPrice = restaurant.getSojuPrice();
 			this.beerPrice = restaurant.getBeerPrice();
 			this.address = restaurant.getAddress();
+			this.businessHours = restaurant.getBusinessHours();
 			this.category = restaurant.getCategory();
 			this.imageURLs = restaurant.getImageURLs();
 			this.bookmarkCount = restaurant.getBookmarkCount();
