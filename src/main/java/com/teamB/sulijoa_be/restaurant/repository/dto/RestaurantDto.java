@@ -56,7 +56,6 @@ public class RestaurantDto {
 						.bookmarkCount(bookmarkCount)
 						.build();
 	}
-
 	@Getter
 	@Setter
 	@AllArgsConstructor
