@@ -1,5 +1,7 @@
 package com.teamB.sulijoa_be.bookmark.repository.entity;
 
+import com.teamB.sulijoa_be.restaurant.repository.entity.Restaurant;
+import com.teamB.sulijoa_be.user.repository.entity.User;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -13,11 +15,13 @@ import lombok.*;
 public class Bookmark {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long bookmart_seq;
+	private Long bookmark_seq;
 
-	@Column(name = "userID", nullable = false, length = 30)
-	private String userID;
+	@ManyToOne
+	@JoinColumn(name = "userID")
+	private User user;
 
-	@Column(name = "restaurantName", nullable = false)
-	private String restaurantName;
+	@ManyToOne
+	@JoinColumn(name = "restaurant_seq")
+	private Restaurant restaurant;
 }

@@ -56,4 +56,13 @@ public class RestaurantDto {
 						.bookmarkCount(bookmarkCount)
 						.build();
 	}
+	@Getter
+	@Setter
+	@AllArgsConstructor
+	public static class BookmarkCount {
+		private int bookmarkCount;
+
+		public BookmarkCount() {
+		}
+	}
 }

@@ -12,7 +12,6 @@ public class UserDto {
 	private String userID;
 	private String userPW;
 	private String nickname;
-	private Long user_seq;
 
 	public User toEntity() {
 		return User.builder()
