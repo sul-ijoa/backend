@@ -4,14 +4,14 @@ import com.teamB.sulijoa_be.restaurant.repository.RestaurantQueryRepository;
 import com.teamB.sulijoa_be.restaurant.repository.RestaurantRepository;
 import com.teamB.sulijoa_be.restaurant.repository.dto.RestaurantDto;
 import com.teamB.sulijoa_be.restaurant.repository.entity.QRestaurant;
-import com.teamB.sulijoa_be.restaurant.repository.entity.Restaurant;
 import com.querydsl.core.BooleanBuilder;
+import com.teamB.sulijoa_be.restaurant.repository.entity.Restaurant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class RestaurantService {
@@ -29,30 +29,72 @@ public class RestaurantService {
 	/**
 	 * 모든 레스토랑을 가져오는 메서드
 	 *
-	 * @return 레스토랑 목록에 대한 응답 DTO
+	 * @return 레스토랑 목록에 대한 응답 DTO 리스트
 	 */
-	public List<RestaurantDto.AllInfoResponse> getAllRestaurants() {
+	public List<RestaurantDto> getAllRestaurants() {
 		List<Restaurant> restaurants = restaurantRepository.findAll();
-		return RestaurantDto.AllInfoResponse.fromRestaurantList(restaurants);
+		return restaurants.stream()
+						.map(RestaurantDto::new)
+						.collect(Collectors.toList());
 	}
 
 	/**
 	 * 조건에 따라 레스토랑을 가져오는 메서드
 	 *
-	 * @param category        카테고리
-	 * @param underSojuPrice  소주 가격 기준 (미만)
-	 * @param moreSojuPrice   소주 가격 기준 (이상)
-	 * @param underBeerPrice  맥주 가격 기준 (미만)
-	 * @param moreBeerPrice   맥주 가격 기준 (이상)
-	 * @return 조건에 맞는 레스토랑 목록에 대한 응답 DTO
+	 * @param category       카테고리
+	 * @param underSojuPrice 소주 가격 기준 (미만)
+	 * @param moreSojuPrice  소주 가격 기준 (이상)
+	 * @param underBeerPrice 맥주 가격 기준 (미만)
+	 * @param moreBeerPrice  맥주 가격 기준 (이상)
+	 * @return 조건에 맞는 레스토랑 목록에 대한 응답 DTO 리스트
 	 */
-	public List<RestaurantDto.AllInfoResponse> getRestaurantsByCondition(String category, Integer underSojuPrice,
-																																			 Integer moreSojuPrice, Integer underBeerPrice,
-																																			 Integer moreBeerPrice) {
+	public List<RestaurantDto> getRestaurantsByCondition(String category, Integer underSojuPrice,
+																											 Integer moreSojuPrice, Integer underBeerPrice,
+																											 Integer moreBeerPrice) {
+		BooleanBuilder predicate = buildPredicate(category, underSojuPrice, moreSojuPrice, underBeerPrice, moreBeerPrice);
+		List<Restaurant> restaurants = restaurantQueryRepository.findRestaurantsByCondition(predicate);
+		return restaurants.stream()
+						.map(RestaurantDto::new)
+						.collect(Collectors.toList());
+	}
+
+	/**
+	 * 특정 레스토랑에 대한 상세 정보를 가져오는 메서드
+	 *
+	 * @param restaurant_seq 레스토랑 일련번호
+	 * @return 레스토랑 상세 정보에 대한 응답 DTO
+	 */
+
+	/**
+	 * 프론트에서 /detail-info를 사용하지 않고
+	 * /all, /info에서 모든 response를 저장해서 사용하므로 /detail-info 주석처리함
+	 * public RestaurantDto getRestaurantDetail(Long restaurant_seq) {
+	 * 		Optional<Restaurant> optionalRestaurant = restaurantRepository.findById(restaurant_seq);
+	 *
+	 * 		if (optionalRestaurant.isEmpty()) {
+	 * 			throw new RuntimeException("restaurant_seq not found: " + restaurant_seq);
+	 *        }
+	 *
+	 * 		Restaurant restaurant = optionalRestaurant.get();
+	 * 		return new RestaurantDto(restaurant);* 	}
+	 */
+
+
+	/**
+	 * 조건에 따라 QueryDSL Predicate를 생성하는 메서드
+	 *
+	 * @param category       카테고리
+	 * @param underSojuPrice 소주 가격 기준 (미만)
+	 * @param moreSojuPrice  소주 가격 기준 (이상)
+	 * @param underBeerPrice 맥주 가격 기준 (미만)
+	 * @param moreBeerPrice  맥주 가격 기준 (이상)
+	 * @return QueryDSL Predicate
+	 */
+	private BooleanBuilder buildPredicate(String category, Integer underSojuPrice, Integer moreSojuPrice,
+																				Integer underBeerPrice, Integer moreBeerPrice) {
 		BooleanBuilder predicate = new BooleanBuilder();
 		QRestaurant qRestaurant = QRestaurant.restaurant;
 
-		// 동적으로 생성된 조건을 쿼리에 추가
 		if (category != null && !category.isEmpty()) {
 			switch (category) {
 				case "korean":
@@ -98,28 +140,6 @@ public class RestaurantService {
 			predicate.and(qRestaurant.beerPrice.goe(moreBeerPrice));
 		}
 
-		// 동적으로 생성된 조건에 맞는 레스토랑 목록 조회
-		List<Restaurant> restaurants = restaurantQueryRepository.findRestaurantsByCondition(predicate);
-
-		// DTO로 변환하여 반환
-		return RestaurantDto.AllInfoResponse.fromRestaurantList(restaurants);
-	}
-
-	/**
-	 * 특정 레스토랑에 대한 상세 정보를 가져오는 메서드
-	 *
-	 * @param restaurant_seq 레스토랑 일련번호
-	 * @return 레스토랑 상세 정보에 대한 응답 DTO
-	 */
-	public RestaurantDto.DetailResponse getRestaurantDetail(Long restaurant_seq) {
-		Optional<Restaurant> optionalRestaurant = restaurantRepository.findById(restaurant_seq);
-
-		if (optionalRestaurant.isEmpty()) {
-			throw new RuntimeException("restaurant_seq not found: " + restaurant_seq);
-		}
-
-		Restaurant restaurant = optionalRestaurant.get();
-
-		return new RestaurantDto.DetailResponse(restaurant);
+		return predicate;
 	}
 }

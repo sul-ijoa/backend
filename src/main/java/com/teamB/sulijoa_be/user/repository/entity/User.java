@@ -11,10 +11,10 @@ import lombok.*;
 @Setter
 @Table(name = "user")
 public class User {
-	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long user_seq;
+	private Long id;
 
+	@Id
 	@Column(name = "userID", nullable = false, length = 30, unique = true)
 	private String userID;
 

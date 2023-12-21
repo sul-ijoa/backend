@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -28,7 +27,6 @@ public class RestaurantDto {
 	@Builder.Default
 	private int bookmarkCount = 0;
 
-	// 생성자: Restaurant 엔터티에서 DTO로의 매핑
 	public RestaurantDto(Restaurant restaurant) {
 		this.restaurant_seq = restaurant.getRestaurant_seq();
 		this.address = restaurant.getAddress();
@@ -43,7 +41,6 @@ public class RestaurantDto {
 		this.bookmarkCount = restaurant.getBookmarkCount();
 	}
 
-	// DTO에서 엔터티로의 매핑
 	public Restaurant toEntity() {
 		return Restaurant.builder()
 						.restaurant_seq(restaurant_seq)
@@ -60,68 +57,13 @@ public class RestaurantDto {
 						.build();
 	}
 
-	// Inner class: /detail 엔드포인트 응답을 위한 DTO
 	@Getter
 	@Setter
-	public static class DetailResponse {
-		private Long restaurant_seq;
-		private String restaurantName;
-		private int sojuPrice;
-		private int beerPrice;
-		private String address;
-		private String businessHours;
-		private String category;
-		private double lat;
-		private double lon;
-		private List<String> imageURLs;
+	@AllArgsConstructor
+	public static class BookmarkCount {
 		private int bookmarkCount;
 
-		// 생성자: Restaurant 엔터티에서 /detail 응답 DTO로의 매핑
-		public DetailResponse(Restaurant restaurant) {
-			this.restaurant_seq = restaurant.getRestaurant_seq();
-			this.restaurantName = restaurant.getRestaurantName();
-			this.sojuPrice = restaurant.getSojuPrice();
-			this.beerPrice = restaurant.getBeerPrice();
-			this.address = restaurant.getAddress();
-			this.businessHours = restaurant.getBusinessHours();
-			this.category = restaurant.getCategory();
-			this.lat = restaurant.getLat();
-			this.lon = restaurant.getLon();
-			this.imageURLs = restaurant.getImageURLs();
-			this.bookmarkCount = restaurant.getBookmarkCount();
-		}
-	}
-
-	// Inner class: /all 및 /info 엔드포인트 응답을 위한 DTO
-	@Getter
-	@Setter
-	public static class AllInfoResponse {
-		private Long restaurant_seq;
-		private String restaurantName;
-		private int sojuPrice;
-		private int beerPrice;
-		private String address;
-		private String category;
-		private List<String> imageURLs;
-		private int bookmarkCount;
-
-		// 생성자: Restaurant 엔터티에서 /all 및 /info 응답 DTO로의 매핑
-		public AllInfoResponse(Restaurant restaurant) {
-			this.restaurant_seq = restaurant.getRestaurant_seq();
-			this.restaurantName = restaurant.getRestaurantName();
-			this.sojuPrice = restaurant.getSojuPrice();
-			this.beerPrice = restaurant.getBeerPrice();
-			this.address = restaurant.getAddress();
-			this.category = restaurant.getCategory();
-			this.imageURLs = restaurant.getImageURLs();
-			this.bookmarkCount = restaurant.getBookmarkCount();
-		}
-
-		// DTO 리스트로 변환하는 메서드
-		public static List<AllInfoResponse> fromRestaurantList(List<Restaurant> restaurants) {
-			return restaurants.stream()
-							.map(AllInfoResponse::new)
-							.collect(Collectors.toList());
+		public BookmarkCount() {
 		}
 	}
 }
