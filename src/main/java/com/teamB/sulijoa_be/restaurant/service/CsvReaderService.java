@@ -16,7 +16,7 @@ import com.opencsv.exceptions.CsvValidationException;
 
 @Service
 public class CsvReaderService {
-	private static final String CSV_FILE_PATH = "C:\\Users\\Ahn Yoon Ju\\OneDrive\\바탕 화면\\sul-ijoa\\sul-ijoa_be\\src\\main\\resources\\data\\서교동_latlon_imageUrl.csv";
+	private static final String CSV_FILE_PATH = "C:\\Users\\ysm\\Desktop\\TeamB\\sul-ijoa\\backend\\src\\main\\resources\\data\\서교동_latlon_imageUrl.csv";
 
 	@Autowired
 	private RestaurantRepository restaurantRepository;

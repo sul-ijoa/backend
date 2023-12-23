@@ -26,6 +26,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	private final UserRepository userRepository;
 	private final PasswordEncoder passwordEncoder;
 
+
 	// 사용자 로그인
 	public ResponseEntity<Map<String, String>> loginUser(String userID, String userPW, HttpServletResponse response) {
 		// 사용자 정보 조회
@@ -176,9 +177,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 		// Spring Security의 UserDetails를 반환
 		return new org.springframework.security.core.userdetails.User(
-						user.getUserID(),
-						user.getUserPW(),
-						Collections.emptyList()
+				user.getUserID(),
+				user.getUserPW(),
+				Collections.emptyList()
 		);
 	}
 

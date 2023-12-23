@@ -15,7 +15,7 @@ import java.util.List;
 public class Restaurant {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long restaurant_seq;
+	private Long restaurantSeq;
 
 	@Column(nullable = false)
 	private String address;
@@ -47,6 +47,9 @@ public class Restaurant {
 	@Column
 	@Builder.Default
 	private int bookmarkCount = 0;
+
+	@Column(name = "content", length = 300)
+	private String content;
 
 	public static RestaurantBuilder builder() {
 		return new RestaurantBuilder();

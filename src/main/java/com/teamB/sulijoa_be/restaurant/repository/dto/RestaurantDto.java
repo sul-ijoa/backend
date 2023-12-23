@@ -1,5 +1,6 @@
 package com.teamB.sulijoa_be.restaurant.repository.dto;
 
+import com.teamB.sulijoa_be.comment.repository.entity.QComment;
 import com.teamB.sulijoa_be.restaurant.repository.entity.Restaurant;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,12 +24,13 @@ public class RestaurantDto {
 	private double lat;
 	private double lon;
 	private List<String> imageURLs;
+	private String content;
 
 	@Builder.Default
 	private int bookmarkCount = 0;
 
 	public RestaurantDto(Restaurant restaurant) {
-		this.restaurant_seq = restaurant.getRestaurant_seq();
+		this.restaurant_seq = restaurant.getRestaurantSeq();
 		this.address = restaurant.getAddress();
 		this.restaurantName = restaurant.getRestaurantName();
 		this.category = restaurant.getCategory();
@@ -39,11 +41,13 @@ public class RestaurantDto {
 		this.lon = restaurant.getLon();
 		this.imageURLs = restaurant.getImageURLs();
 		this.bookmarkCount = restaurant.getBookmarkCount();
+		this.content = restaurant.getContent();
+
 	}
 
 	public Restaurant toEntity() {
 		return Restaurant.builder()
-						.restaurant_seq(restaurant_seq)
+						.restaurantSeq(restaurant_seq)
 						.address(address)
 						.restaurantName(restaurantName)
 						.category(category)
@@ -54,6 +58,7 @@ public class RestaurantDto {
 						.lon(lon)
 						.imageURLs(imageURLs)
 						.bookmarkCount(bookmarkCount)
+						.content(content)
 						.build();
 	}
 	@Getter
@@ -65,4 +70,5 @@ public class RestaurantDto {
 		public BookmarkCount() {
 		}
 	}
+
 }
