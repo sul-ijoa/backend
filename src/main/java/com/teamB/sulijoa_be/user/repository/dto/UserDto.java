@@ -15,9 +15,9 @@ public class UserDto {
 
 	public User toEntity() {
 		return User.builder()
-						.userID(userID)
-						.userPW(userPW)
-						.nickname(nickname)
-						.build();
+				.userID(userID)
+				.userPW(userPW)
+				.nickname(nickname)
+				.build();
 	}
 }
