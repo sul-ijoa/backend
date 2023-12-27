@@ -23,4 +23,6 @@ public class User {
 
 	@Column(name = "nickname", nullable = false, length = 8)
 	private String nickname;
+
+
 }
