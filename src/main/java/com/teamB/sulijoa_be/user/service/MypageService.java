@@ -22,4 +22,5 @@ public class MypageService {
 						.map(Bookmark::getRestaurant)
 						.collect(Collectors.toList());
 	}
+
 }

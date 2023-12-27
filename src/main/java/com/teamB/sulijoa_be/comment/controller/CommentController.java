@@ -27,17 +27,30 @@ public class CommentController {
         return ResponseEntity.status(HttpStatus.CREATED).body("success");
     }
 
-    @GetMapping
+    @GetMapping("/restaurant")
     public ResponseEntity<List<CommentDto>> getCommentsByRestaurantSeq(@RequestParam("restaurant_seq") Long restaurantSeq) {
         List<CommentDto> comments = commentService.getCommentsByRestaurantSeq(restaurantSeq);
         return ResponseEntity.ok(comments);
     }
+
 
     @PutMapping("/edit")
     public ResponseEntity<?> editComment(@RequestBody CommentDto commentDto) {
         commentService.editComment(commentDto);
         return ResponseEntity.status(HttpStatus.OK).body("success");
     }
+
+    @GetMapping("/mypage")
+    public ResponseEntity<List<CommentDto>> getCommentsByUserID(@RequestParam("userID") String userID) {
+        List<CommentDto> comments = commentService.getCommentsByUserID(userID);
+        return ResponseEntity.ok(comments);
+    }
+    @DeleteMapping
+    public ResponseEntity<?> deleteComment(@RequestBody CommentDto commentDto) {
+        commentService.deleteComment(commentDto.getRestaurant_seq(), commentDto.getContent());
+        return ResponseEntity.status(HttpStatus.OK).body("success");
+    }
+
 
 
 }
