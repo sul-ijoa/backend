@@ -55,7 +55,7 @@ public class BookmarkController {
 		return ResponseEntity.ok(responseDto);
 	}
 
-	@PostMapping("/delete")
+	@DeleteMapping("/delete")
 	public ResponseEntity<BookmarkDto.Response> removeBookmark(@RequestBody BookmarkDto request) {
 		String userID = request.getUserID();
 		Long restaurant_seq = request.getRestaurant_seq();
