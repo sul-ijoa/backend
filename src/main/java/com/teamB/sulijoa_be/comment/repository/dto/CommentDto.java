@@ -11,8 +11,10 @@
 		private String userID;
 		private Long restaurant_seq;
 		private String content;
-
-
+		private String restaurant_name;
+		private int beerPrice;
+		private int sojuPrice;
+		private String category;
 
 
 		public Comment toEntity() {
@@ -21,6 +23,11 @@
 					.restaurantSeq(restaurant_seq)
 					.content(content)
 					.comment_seq(comment_seq)
+					.restaurantName(restaurant_name)
+					.beerPrice(beerPrice)
+					.sojuPrice(sojuPrice)
+					.categroy(category)
+
 					.build();
 		}
 		public CommentDto(Comment comment) {
@@ -28,7 +35,13 @@
 			this.restaurant_seq = comment.getRestaurantSeq();
 			this.userID = comment.getUserID();
 			this.content = comment.getContent();
+			
+
+
 
 		}
-
+		  public void setRestaurantName(String restaurantName)
+		  {
+		        this.restaurant_name = restaurantName;
+		  }
 	}
