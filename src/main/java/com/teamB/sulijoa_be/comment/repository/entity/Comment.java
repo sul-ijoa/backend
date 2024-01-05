@@ -24,15 +24,5 @@
 		@Column(name = "content", length = 300)
 		private String content;
 
-		@Column(name = "beerprice", nullable = false)
-		private int beerPrice;
 
-		@Column(name = "sojuprice", nullable = false)
-		private int sojuPrice;
-
-		@Column(name = "restaurant_name", nullable = false)
-		private String restaurantName;
-
-		@Column(name = "category", nullable = false)
-		private String categroy;
 	}

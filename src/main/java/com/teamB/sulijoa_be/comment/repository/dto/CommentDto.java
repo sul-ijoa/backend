@@ -23,10 +23,7 @@
 					.restaurantSeq(restaurant_seq)
 					.content(content)
 					.comment_seq(comment_seq)
-					.restaurantName(restaurant_name)
-					.beerPrice(beerPrice)
-					.sojuPrice(sojuPrice)
-					.categroy(category)
+
 
 					.build();
 		}
@@ -35,9 +32,6 @@
 			this.restaurant_seq = comment.getRestaurantSeq();
 			this.userID = comment.getUserID();
 			this.content = comment.getContent();
-			
-
-
 
 		}
 		  public void setRestaurantName(String restaurantName)
