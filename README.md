@@ -20,3 +20,5 @@ dependencies {
 **DB엔진:** MySQL 8.0  
 **인스턴스 유형:** db.t3.micro  
 **보안관리:** IAM 인증 사용  
+
+![DB 설계](https://github.com/sul-ijoa/backend/assets/105343169/11e4f77f-8cac-4eea-88fc-25a04b5b667f)
