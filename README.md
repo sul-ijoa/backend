@@ -15,3 +15,8 @@ dependencies {
   annotationProcessor "jakarta.persistence:jakarta.persistence-api"
 }
 ```
+
+### RDS 구축
+**DB엔진:** MySQL 8.0  
+**인스턴스 유형:** db.t3.micro  
+**보안관리:** IAM 인증 사용  
